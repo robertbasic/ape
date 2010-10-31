@@ -1,0 +1,41 @@
+__author__="robert"
+__date__ ="$Oct 31, 2010 2:45:50 PM$"
+
+
+from PyQt4.QtGui import QWidget, QDirModel, QTreeView
+
+from apelib import gui, syntaxer
+
+
+class apeFileBrowser(QWidget):
+
+    def __init__(self, parent):
+        QWidget.__init__(self)
+
+        model = QDirModel()
+        tree = QTreeView(self)
+        tree.setModel(model)
+
+        parent.setWidget(tree)
+
+
+class apeDocumentsArea(QWidget):
+
+    def __init__(self, parent):
+        QWidget.__init__(self)
+
+        self.parent = parent
+
+        self.gui = gui.apeDocumentsArea(self)
+
+        self.tabs.addTab(apeDocument(), 'Test')
+
+
+class apeDocument(QWidget):
+
+    def __init__(self):
+        QWidget.__init__(self)
+
+        self.gui = gui.apeDocument(self)
+
+        self.syntaxer = syntaxer.syntaxer(self.text.document())
