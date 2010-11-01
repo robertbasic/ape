@@ -2,7 +2,8 @@ __author__="robert"
 __date__ ="$Oct 31, 2010 2:45:50 PM$"
 
 
-from PyQt4.QtGui import QWidget, QDirModel, QTreeView
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 from apelib import gui, syntaxer
 
@@ -12,7 +13,8 @@ class apeFileBrowser(QWidget):
     def __init__(self, parent):
         QWidget.__init__(self)
 
-        model = QDirModel()
+        model = QFileSystemModel()
+        model.setRootPath(QDir.currentPath())
         tree = QTreeView(self)
         tree.setModel(model)
 
