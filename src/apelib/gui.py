@@ -16,9 +16,9 @@ class apeMain():
         parent.setWindowTitle("ape")
         parent.setGeometry(50, 50, 500, 500)
 
-        self.setupMenubar()
-
         self.setupDocks()
+
+        self.setupMenubar()
 
     def setupMenubar(self):
         self.menubar = self.parent.menuBar()
@@ -29,6 +29,8 @@ class apeMain():
         fileMenu = self.menubar.addMenu("&File")
         fileMenu.addAction(exit)
 
+        viewMenu = self.menubar.addMenu("&View")
+        viewMenu.addAction(self.filesDock.toggleViewAction())
 
     def setupDocks(self):
         self.filesDock = QDockWidget("Files", self.parent)
