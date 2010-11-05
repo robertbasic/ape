@@ -5,25 +5,31 @@ __date__ ="$Oct 30, 2010 5:43:01 PM$"
 
 import sys
 
-#from PyQt4.QtCore import SIGNAL, SLOT
+from PyQt4.QtCore import *
 from PyQt4.QtGui import QApplication, QMainWindow
 
 from apelib import gui, elements
 
 
 class apeMain(QMainWindow):
+    
     def __init__(self):
         QMainWindow.__init__(self)
 
         self.gui = gui.apeMain(self)
 
-        elements.apeDocumentsArea(self)
+        self.documents = elements.apeDocumentsArea(self)
 
-        elements.apeFileBrowser(self.gui.filesDock)
+        self.fileBrowser = elements.apeFileBrowser(self.gui.filesDock, self)
+
+    def addNewDocument(self, path, name):
+        document = elements.apeDocument(path)
+        index = self.documents.tabs.addTab(document, name)
+        self.documents.tabs.setCurrentIndex(index)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     ape = apeMain()
-    ape.showMaximized()
+    ape.show()
     sys.exit(app.exec_())

@@ -24,7 +24,7 @@ class apeMain():
         self.menubar = self.parent.menuBar()
 
         exit = QAction(QIcon("/icons/exit.png"), "E&xit", self.parent)
-        self.parent.connect(exit, SIGNAL("triggered()"), SLOT("close()"))
+        exit.triggered.connect(self.parent.close)
 
         fileMenu = self.menubar.addMenu("&File")
         fileMenu.addAction(exit)

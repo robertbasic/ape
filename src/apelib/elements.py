@@ -11,20 +11,26 @@ from apelib import gui, syntaxer
 
 class apeFileBrowser(QWidget):
 
-    def __init__(self, parent):
+    def __init__(self, parent, app):
         QWidget.__init__(self)
+
+        self.app = app
 
         homePath = os.path.expanduser('~')
 
-        model = QFileSystemModel()
-        model.setRootPath(homePath)
+        self.model = QFileSystemModel()
+        self.model.setRootPath(homePath)
 
-        index = model.index(homePath)
+        index = self.model.index(homePath)
 
         tree = QTreeView(self)
         tree.setHeaderHidden(True)
+        tree.setContextMenuPolicy(Qt.CustomContextMenu)
 
-        tree.setModel(model)
+        tree.customContextMenuRequested.connect(self.treeContextMenu)
+        tree.doubleClicked.connect(self.treeDoubleClicked)
+
+        tree.setModel(self.model)
         tree.setRootIndex(index)
 
         tree.hideColumn(1)
@@ -32,6 +38,14 @@ class apeFileBrowser(QWidget):
         tree.hideColumn(3)
 
         parent.setWidget(tree)
+
+    def treeContextMenu(self):
+        print 'context menu called'
+
+    def treeDoubleClicked(self, i):
+        if(self.model.isDir(i) == False):
+            self.app.addNewDocument(self.model.filePath(i), \
+                                    self.model.fileName(i))
 
 
 class apeDocumentsArea(QWidget):
@@ -43,12 +57,10 @@ class apeDocumentsArea(QWidget):
 
         self.gui = gui.apeDocumentsArea(self)
 
-        self.tabs.addTab(apeDocument(), 'Test')
-
 
 class apeDocument(QWidget):
 
-    def __init__(self):
+    def __init__(self, filePath):
         QWidget.__init__(self)
 
         self.gui = gui.apeDocument(self)
