@@ -4,7 +4,7 @@ __date__ ="$Oct 31, 2010 2:18:32 PM$"
 
 from PyQt4.QtCore import SIGNAL, SLOT, Qt
 from PyQt4.QtGui import QAction, QIcon, QDockWidget, QTabWidget, QTextEdit, \
-                        QGridLayout
+                        QGridLayout, QLabel, QPlainTextEdit
 
 
 class apeMain():
@@ -14,7 +14,7 @@ class apeMain():
         
         parent.setObjectName("ape")
         parent.setWindowTitle("ape")
-        parent.setGeometry(50, 50, 500, 500)
+        parent.setGeometry(50, 50, 800, 500)
 
         self.setupDocks()
 
@@ -54,20 +54,28 @@ class apeDocument():
     def __init__(self, parent):
         self.parent = parent
         
-        text = QTextEdit(self.parent)
+        text = QPlainTextEdit(self.parent)
+
+        lineNumbers = QPlainTextEdit(self.parent)
+        lineNumbers.setMaximumWidth(50)
+        lineNumbers.setEnabled(False)
 
         grid = QGridLayout(self.parent)
-        grid.addWidget(text, 0, 0, 1, 1)
+        grid.addWidget(lineNumbers, 0, 0, 1, 1)
+        grid.addWidget(text, 0, 1, 1, 1)
 
-        text.append("<?php\n")
-        text.append("public function sayHello($name)")
-        text.append("{\n\techo 'Hello ' . $name;\n}\n")
-        text.append("not a comment # some comment")
-        text.append("not a comment // a comment again")
-        text.append("not a comment /** oh a comment! */ not a comment")
-        text.append("not a comment /** oh a multi")
-        text.append("line")
-        text.append("comment! doesn't work yet! */")
-        text.append("?>")
+        text.appendPlainText("<?php\n")
+        text.appendPlainText("public function sayHello($name)")
+        text.appendPlainText("{\n\techo 'Hello ' . $name;\n}\n")
+        text.appendPlainText("not a comment # some comment")
+        text.appendPlainText("not a comment // a comment again")
+        text.appendPlainText("not a comment /** oh a comment! */ not a comment")
+        text.appendPlainText("not a comment /** oh a multi")
+        text.appendPlainText("line")
+        text.appendPlainText("comment! doesn't work yet! */")
+        text.appendPlainText("?>")
+
+        text.blockCountChanged.connect(self.parent.setLineNumbers)
 
         self.parent.text = text
+        self.parent.lineNumbers = lineNumbers
