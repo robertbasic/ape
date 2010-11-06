@@ -28,7 +28,7 @@ class apeFileBrowser(QWidget):
         tree.setContextMenuPolicy(Qt.CustomContextMenu)
 
         tree.customContextMenuRequested.connect(self.treeContextMenu)
-        tree.doubleClicked.connect(self.treeDoubleClicked)
+        tree.activated.connect(self.treeItemActivated)
 
         tree.setModel(self.model)
         tree.setRootIndex(index)
@@ -42,7 +42,7 @@ class apeFileBrowser(QWidget):
     def treeContextMenu(self):
         print 'context menu called'
 
-    def treeDoubleClicked(self, i):
+    def treeItemActivated(self, i):
         if(self.model.isDir(i) == False):
             self.app.addNewDocument(self.model.filePath(i), \
                                     self.model.fileName(i))
