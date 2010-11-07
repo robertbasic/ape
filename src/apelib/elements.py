@@ -60,10 +60,20 @@ class apeDocumentsArea(QWidget):
 
 class apeDocument(QWidget):
 
+    file = False
+    data = False
+
     def __init__(self, filePath):
         QWidget.__init__(self)
 
         self.gui = gui.apeDocument(self)
+
+        file = QFile(filePath)
+        file.open(QIODevice.ReadWrite)
+        data = file.readAll()
+        codec = QTextCodec.codecForName("UTF-8")
+        str = codec.toUnicode(data)
+        self.text.appendPlainText(str)
 
         self.syntaxer = syntaxer.syntaxer(self.text.document())
 
