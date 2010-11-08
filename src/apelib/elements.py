@@ -44,8 +44,7 @@ class apeFileBrowser(QWidget):
 
     def treeItemActivated(self, i):
         if(self.model.isDir(i) == False):
-            self.app.addNewDocument(self.model.filePath(i), \
-                                    self.model.fileName(i))
+            self.app.addNewDocument(self.model.filePath(i))
 
 
 class apeDocumentsArea(QWidget):
@@ -74,7 +73,7 @@ class apeDocument(QWidget):
 
     valid = True
 
-    def __init__(self, filePath, fileName):
+    def __init__(self, filePath):
         QWidget.__init__(self)
 
         file = QFile(filePath)
@@ -87,13 +86,14 @@ class apeDocument(QWidget):
             self.valid = False
 
         if(self.valid):
+
+            self.fileName = fileinfo.fileName()
+
             if(fileinfo.isReadable() and fileinfo.isWritable()):
                 self.openMode = self.readwrite
 
             if(self.openMode == self.readonly):
-                fileName = "%s [read-only]" % fileName
-
-            self.fileName = fileName
+                self.fileName = "%s [read-only]" % self.fileName
 
             self.gui = gui.apeDocument(self)
 

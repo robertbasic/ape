@@ -22,8 +22,8 @@ class apeMain(QMainWindow):
 
         self.fileBrowser = elements.apeFileBrowser(self.gui.filesDock, self)
 
-    def addNewDocument(self, path, name):
-        document = elements.apeDocument(path, name)
+    def addNewDocument(self, path):
+        document = elements.apeDocument(path)
         if(document.valid):
             index = self.documents.tabs.addTab(document, document.fileName)
             self.documents.tabs.setCurrentIndex(index)
