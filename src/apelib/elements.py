@@ -61,23 +61,51 @@ class apeDocumentsArea(QWidget):
 class apeDocument(QWidget):
 
     file = False
+    filePath = False
+    fileName = False
+    fileInfo = False
+
+    readonly = QIODevice.ReadOnly
+    readwrite = QIODevice.ReadWrite
+
+    openMode = readonly
+
     data = False
 
-    def __init__(self, filePath):
+    valid = True
+
+    def __init__(self, filePath, fileName):
         QWidget.__init__(self)
 
-        self.gui = gui.apeDocument(self)
-
         file = QFile(filePath)
-        file.open(QIODevice.ReadWrite)
-        data = file.readAll()
-        codec = QTextCodec.codecForName("UTF-8")
-        str = codec.toUnicode(data)
-        self.text.appendPlainText(str)
+        fileinfo = QFileInfo(file)
 
-        self.syntaxer = syntaxer.syntaxer(self.text.document())
+        if(fileinfo.exists() == False):
+            self.valid = False
 
-        self.setLineNumbers()
+        if(fileinfo.isFile() == False):
+            self.valid = False
+
+        if(self.valid):
+            if(fileinfo.isReadable() and fileinfo.isWritable()):
+                self.openMode = self.readwrite
+
+            if(self.openMode == self.readonly):
+                fileName = "%s [read-only]" % fileName
+
+            self.fileName = fileName
+
+            self.gui = gui.apeDocument(self)
+
+            file.open(self.openMode)
+            data = file.readAll()
+            codec = QTextCodec.codecForName("UTF-8")
+            str = codec.toUnicode(data)
+            self.text.appendPlainText(str)
+
+            self.syntaxer = syntaxer.syntaxer(self.text.document())
+
+            self.setLineNumbers()
 
     def setLineNumbers(self):
         self.lineNumbers.clear()
