@@ -64,17 +64,6 @@ class apeDocument():
         grid.addWidget(lineNumbers, 0, 0, 1, 1)
         grid.addWidget(text, 0, 1, 1, 1)
 
-#        text.appendPlainText("<?php\n")
-#        text.appendPlainText("public function sayHello($name)")
-#        text.appendPlainText("{\n\techo 'Hello ' . $name;\n}\n")
-#        text.appendPlainText("not a comment # some comment")
-#        text.appendPlainText("not a comment // a comment again")
-#        text.appendPlainText("not a comment /** oh a comment! */ not a comment")
-#        text.appendPlainText("not a comment /** oh a multi")
-#        text.appendPlainText("line")
-#        text.appendPlainText("comment! doesn't work yet! */")
-#        text.appendPlainText("?>")
-
         text.blockCountChanged.connect(self.parent.setLineNumbers)
 
         self.parent.text = text
