@@ -87,6 +87,8 @@ class apeDocument(QWidget):
 
         if(self.valid):
 
+            self.gui = gui.apeDocument(self)
+
             self.fileName = fileinfo.fileName()
 
             if(fileinfo.isReadable() and fileinfo.isWritable()):
@@ -94,8 +96,7 @@ class apeDocument(QWidget):
 
             if(self.openMode == self.readonly):
                 self.fileName = "%s [read-only]" % self.fileName
-
-            self.gui = gui.apeDocument(self)
+                self.text.setReadOnly(True)
 
             file.open(self.openMode)
             data = file.readAll()
