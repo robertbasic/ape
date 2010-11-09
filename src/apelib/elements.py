@@ -138,7 +138,7 @@ class apeDocument(QWidget):
     def isBinary(self,filePath):
         filePath = unicode(filePath.toUtf8(), 'utf-8')
         fileType = commands.getoutput("file -ib " + filePath)
-        pattern = re.compile(r"""\stext/""", re.VERBOSE)
+        pattern = re.compile(r"""text/""", re.VERBOSE)
         match = re.search(pattern, fileType)
         if match is not None:
             return False
