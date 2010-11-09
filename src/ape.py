@@ -1,6 +1,17 @@
 #!/usr/bin/python
 
-__author__="robert"
+# -*- coding: utf-8 -*-
+
+"""
+    ape - ape is a PHP editor
+    =========================
+    ape is a simple editor/IDE for PHP. It is written in python and pyqt.
+
+    copyright: (c) 2010 Robert Basic
+    license: GNU GPL v2, see LICENSE for more details
+"""
+
+__author__="robertbasic"
 __date__ ="$Oct 30, 2010 5:43:01 PM$"
 
 import sys
@@ -12,7 +23,8 @@ from apelib import gui, elements
 
 
 class apeMain(QMainWindow):
-    
+    """The main ape object/window."""
+
     def __init__(self):
         QMainWindow.__init__(self)
 

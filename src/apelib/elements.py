@@ -1,4 +1,13 @@
-__author__="robert"
+# -*- coding: utf-8 -*-
+
+"""
+    ape - elements
+    ==============
+    Elements used through out the application. Windows, dialogs
+    and all sort of different widgets.
+"""
+
+__author__="robertbasic"
 __date__ ="$Oct 31, 2010 2:45:50 PM$"
 
 import os
@@ -10,6 +19,9 @@ from apelib import gui, syntaxer
 
 
 class apeFileBrowser(QWidget):
+    """ape file browser widget, by default found on the left side
+    of the application.
+    """
 
     def __init__(self, parent, app):
         QWidget.__init__(self)
@@ -48,6 +60,7 @@ class apeFileBrowser(QWidget):
 
 
 class apeDocumentsArea(QWidget):
+    """An area which groups together all the opened files/documents"""
 
     def __init__(self, parent):
         QWidget.__init__(self)
@@ -58,6 +71,9 @@ class apeDocumentsArea(QWidget):
 
 
 class apeDocument(QWidget):
+    """A file/document opened for reading/writing, visually sits
+    in an apeDocumentsArea
+    """
 
     file = False
     filePath = False

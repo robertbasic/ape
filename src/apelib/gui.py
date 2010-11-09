@@ -1,4 +1,14 @@
-__author__="robert"
+# -*- coding: utf-8 -*-
+
+"""
+    ape - gui
+    =========
+    All GUI elements. Besides setting all those pretty stuff up,
+    windows, menus, layouts and possibly connecting signals to slots,
+    other work shouldn't be here.
+"""
+
+__author__="robertbasic"
 __date__ ="$Oct 31, 2010 2:18:32 PM$"
 
 
@@ -8,6 +18,7 @@ from PyQt4.QtGui import QAction, QIcon, QDockWidget, QTabWidget, QTextEdit, \
 
 
 class apeMain():
+    """GUI for the main ape window"""
 
     def __init__(self, parent):
         self.parent = parent
@@ -41,6 +52,7 @@ class apeMain():
 
 
 class apeDocumentsArea():
+    """GUI for the documents area."""
 
     def __init__(self, parent):
         self.parent = parent
@@ -50,6 +62,7 @@ class apeDocumentsArea():
 
 
 class apeDocument():
+    """GUI for an ape document."""
 
     def __init__(self, parent):
         self.parent = parent
