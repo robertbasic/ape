@@ -11,6 +11,8 @@ __author__="robertbasic"
 __date__ ="$Oct 31, 2010 2:45:50 PM$"
 
 import os
+import commands
+import re
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -101,6 +103,9 @@ class apeDocument(QWidget):
         if(fileinfo.isFile() == False):
             self.valid = False
 
+        if(self.isBinary(filePath)):
+            self.valid = False
+
         if(self.valid):
 
             self.gui = gui.apeDocument(self)
@@ -129,3 +134,13 @@ class apeDocument(QWidget):
         bc = self.text.blockCount()+1
         for l in range(1, bc):
             self.lineNumbers.appendPlainText("%d" % l)
+
+    def isBinary(self,filePath):
+        filePath = unicode(filePath.toUtf8(), 'utf-8')
+        fileType = commands.getoutput("file -ib " + filePath)
+        pattern = re.compile(r"""\stext/""", re.VERBOSE)
+        match = re.search(pattern, fileType)
+        if match is not None:
+            return False
+        else:
+            return True
