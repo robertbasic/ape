@@ -64,12 +64,21 @@ class apeFileBrowser(QWidget):
 class apeDocumentsArea(QWidget):
     """An area which groups together all the opened files/documents"""
 
+    open = {}
+
     def __init__(self, parent):
         QWidget.__init__(self)
 
         self.parent = parent
 
         self.gui = gui.apeDocumentsArea(self)
+
+    def isDocumentAlreadyOpen(self, path):
+        path = unicode(path.toUtf8(), 'utf-8')
+        if(self.open.has_key(path)):
+            return self.open[path]
+        else:
+            return False
 
     def closeTab(self, index):
         documentClosed = self.parent.closeDocument(index)

@@ -37,8 +37,17 @@ class apeMain(QMainWindow):
     def addNewDocument(self, path):
         document = elements.apeDocument(path)
         if(document.valid):
-            index = self.documents.tabs.addTab(document, document.fileName)
-            self.documents.tabs.setCurrentIndex(index)
+            alreadyOpen = self.documents.isDocumentAlreadyOpen(path)
+
+            # 0 == False gives True!
+            if(alreadyOpen is False):
+                index = self.documents.tabs.addTab(document, document.fileName)
+
+                self.documents.open[unicode(path.toUtf8(), 'utf-8')] = index
+
+                self.documents.tabs.setCurrentIndex(index)
+            else:
+                self.documents.tabs.setCurrentIndex(alreadyOpen)
 
     def closeDocument(self, index):
         return False
