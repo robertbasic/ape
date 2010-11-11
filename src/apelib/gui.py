@@ -70,6 +70,8 @@ class apeDocument():
 
     def __init__(self, parent):
         self.parent = parent
+
+        self.parent.setAttribute(Qt.WA_DeleteOnClose)
         
         text = QPlainTextEdit(self.parent)
 

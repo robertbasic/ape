@@ -80,9 +80,18 @@ class apeDocumentsArea(QWidget):
         else:
             return False
 
+    def getOpenDocumentPath(self, index):
+        path = [path for path, i in self.open.iteritems() if i == index]
+        if(len(path) == 1):
+            return path[0]
+        else:
+            return False
+
     def closeTab(self, index):
         documentClosed = self.parent.closeDocument(index)
         if(documentClosed):
+            path = self.getOpenDocumentPath(index)
+            del self.open[path]
             self.tabs.removeTab(index)
 
 
