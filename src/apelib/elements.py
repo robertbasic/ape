@@ -71,6 +71,11 @@ class apeDocumentsArea(QWidget):
 
         self.gui = gui.apeDocumentsArea(self)
 
+    def closeTab(self, index):
+        documentClosed = self.parent.closeDocument(index)
+        if(documentClosed):
+            self.tabs.removeTab(index)
+
 
 class apeDocument(QWidget):
     """A file/document opened for reading/writing, visually sits

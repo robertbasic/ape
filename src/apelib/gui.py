@@ -60,6 +60,10 @@ class apeDocumentsArea():
         self.parent.tabs = QTabWidget(self.parent)
         self.parent.parent.setCentralWidget(self.parent.tabs)
 
+        self.parent.tabs.setTabsClosable(True)
+
+        self.parent.tabs.tabCloseRequested.connect(self.parent.closeTab)
+
 
 class apeDocument():
     """GUI for an ape document."""

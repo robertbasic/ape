@@ -40,6 +40,9 @@ class apeMain(QMainWindow):
             index = self.documents.tabs.addTab(document, document.fileName)
             self.documents.tabs.setCurrentIndex(index)
 
+    def closeDocument(self, index):
+        return False
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
