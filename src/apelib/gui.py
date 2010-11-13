@@ -14,7 +14,7 @@ __date__ ="$Oct 31, 2010 2:18:32 PM$"
 
 from PyQt4.QtCore import SIGNAL, SLOT, Qt
 from PyQt4.QtGui import QAction, QIcon, QDockWidget, QTabWidget, QTextEdit, \
-                        QGridLayout, QLabel, QPlainTextEdit
+                        QGridLayout, QLabel, QPlainTextEdit, QFrame, QPalette
 
 
 class apeMain():
@@ -76,8 +76,11 @@ class apeDocument():
         text = QPlainTextEdit(self.parent)
 
         lineNumbers = QPlainTextEdit(self.parent)
-        lineNumbers.setMaximumWidth(50)
+        lineNumbers.setMaximumWidth(20)
+        lineNumbers.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         lineNumbers.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        lineNumbers.setFrameShape(QFrame.StyledPanel)
+        lineNumbers.setFrameShadow(QFrame.Plain)
         lineNumbers.setEnabled(False)
 
         grid = QGridLayout(self.parent)

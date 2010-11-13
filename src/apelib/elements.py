@@ -13,6 +13,7 @@ __date__ ="$Oct 31, 2010 2:45:50 PM$"
 import os
 import commands
 import re
+import math
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -165,6 +166,9 @@ class apeDocument(QWidget):
     def setLineNumbers(self):
         self.lineNumbers.clear()
         bc = self.text.blockCount()+1
+        
+        self.setLineNumbersWidth(bc)
+
         for l in range(1, bc):
             self.lineNumbers.appendPlainText("%d" % l)
 
@@ -172,3 +176,10 @@ class apeDocument(QWidget):
         if(dy != 0):
             m = self.text.verticalScrollBar().value()
             self.lineNumbers.verticalScrollBar().setValue(m)
+
+    def setLineNumbersWidth(self, number):
+        # number of digits in a number: (log10(number)/log10(10))+1
+        # who'd know you need math to write a text editor :D
+        digits = int(math.log10(number)+1)
+        width = digits * 20
+        self.lineNumbers.setMaximumWidth(width)
