@@ -77,6 +77,7 @@ class apeDocument():
 
         lineNumbers = QPlainTextEdit(self.parent)
         lineNumbers.setMaximumWidth(50)
+        lineNumbers.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         lineNumbers.setEnabled(False)
 
         grid = QGridLayout(self.parent)
@@ -84,6 +85,7 @@ class apeDocument():
         grid.addWidget(text, 0, 1, 1, 1)
 
         text.blockCountChanged.connect(self.parent.setLineNumbers)
+        text.updateRequest.connect(self.parent.scrollLineNumbers)
 
         self.parent.text = text
         self.parent.lineNumbers = lineNumbers

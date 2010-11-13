@@ -150,13 +150,7 @@ class apeDocument(QWidget):
 
             self.syntaxer = syntaxer.syntaxer(self.text.document())
 
-            self.setLineNumbers()
-
-    def setLineNumbers(self):
-        self.lineNumbers.clear()
-        bc = self.text.blockCount()+1
-        for l in range(1, bc):
-            self.lineNumbers.appendPlainText("%d" % l)
+            self.setLineNumbers()    
 
     def isBinary(self,filePath):
         filePath = unicode(filePath.toUtf8(), 'utf-8')
@@ -167,3 +161,14 @@ class apeDocument(QWidget):
             return False
         else:
             return True
+
+    def setLineNumbers(self):
+        self.lineNumbers.clear()
+        bc = self.text.blockCount()+1
+        for l in range(1, bc):
+            self.lineNumbers.appendPlainText("%d" % l)
+
+    def scrollLineNumbers(self, rect, dy):
+        if(dy != 0):
+            m = self.text.verticalScrollBar().value()
+            self.lineNumbers.verticalScrollBar().setValue(m)
