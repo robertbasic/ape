@@ -89,6 +89,7 @@ class apeDocument():
 
         text.blockCountChanged.connect(self.parent.setLineNumbers)
         text.updateRequest.connect(self.parent.scrollLineNumbers)
+        text.cursorPositionChanged.connect(self.parent.highlightCurrentLine)
 
         self.parent.text = text
         self.parent.lineNumbers = lineNumbers

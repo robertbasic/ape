@@ -183,3 +183,16 @@ class apeDocument(QWidget):
         digits = int(math.log10(number)+1)
         width = digits * 20
         self.lineNumbers.setMaximumWidth(width)
+
+    def highlightCurrentLine(self):
+        extraSelections = [QTextEdit.ExtraSelection()]
+        selection = QTextEdit.ExtraSelection()
+        color = QColor(209, 220, 236)
+
+        selection.format.setBackground(color)
+        selection.format.setProperty(QTextFormat.FullWidthSelection, True)
+        selection.cursor = self.text.textCursor()
+        selection.cursor.clearSelection()
+        extraSelections.append(selection)
+
+        self.text.setExtraSelections(extraSelections)
