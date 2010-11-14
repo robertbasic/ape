@@ -34,22 +34,24 @@ class apeMain():
     def setupMenubar(self):
         self.menubar = self.parent.menuBar()
 
-        newFile = QAction("&New file", self.parent)
-        newFile.triggered.connect(self.parent.newFile)
+        newFileAction = QAction("&New file", self.parent)
+        newFileAction.triggered.connect(self.parent.newFile)
+        self.parent.newFileAction = newFileAction
 
-        newDirectory = QAction("New &directory", self.parent)
-        newDirectory.triggered.connect(self.parent.newDirectory)
+        newDirectoryAction = QAction("New &directory", self.parent)
+        newDirectoryAction.triggered.connect(self.parent.newDirectory)
+        self.parent.newDirectoryAction = newDirectoryAction
 
-        exit = QAction(QIcon("icons/exit.png"), "E&xit", self.parent)
-        exit.triggered.connect(self.parent.close)
+        exitAction = QAction(QIcon("icons/exit.png"), "E&xit", self.parent)
+        exitAction.triggered.connect(self.parent.close)
 
         fileMenu = self.menubar.addMenu("&File")
         newMenu = fileMenu.addMenu("New")
 
-        fileMenu.addAction(exit)
+        fileMenu.addAction(exitAction)
 
-        newMenu.addAction(newFile)
-        newMenu.addAction(newDirectory)
+        newMenu.addAction(newFileAction)
+        newMenu.addAction(newDirectoryAction)
 
         viewMenu = self.menubar.addMenu("&View")
         viewMenu.addAction(self.filesDock.toggleViewAction())

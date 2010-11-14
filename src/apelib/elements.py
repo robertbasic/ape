@@ -51,11 +51,14 @@ class apeFileBrowser(QWidget):
         tree.hideColumn(1)
         tree.hideColumn(2)
         tree.hideColumn(3)
-
+        
         parent.setWidget(tree)
 
-    def treeContextMenu(self):
-        print 'context menu called'
+    def treeContextMenu(self, point):
+        menu = QMenu(self.app)
+        menu.addAction(self.app.newFileAction)
+        menu.addAction(self.app.newDirectoryAction)
+        menu.popup(QCursor.pos())
 
     def treeItemActivated(self, i):
         if(self.model.isDir(i) == False):
