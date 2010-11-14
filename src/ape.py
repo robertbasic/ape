@@ -34,6 +34,12 @@ class apeMain(QMainWindow):
 
         self.fileBrowser = elements.apeFileBrowser(self.gui.filesDock, self)
 
+    def newFile(self):
+        pass
+
+    def newDirectory(self):
+        pass
+
     def addNewDocument(self, path):
         alreadyOpen = self.documents.isDocumentAlreadyOpen(path)
         # 0 == False gives True!
