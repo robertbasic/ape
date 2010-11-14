@@ -14,7 +14,8 @@ __date__ ="$Oct 31, 2010 2:18:32 PM$"
 
 from PyQt4.QtCore import SIGNAL, SLOT, Qt
 from PyQt4.QtGui import QAction, QIcon, QDockWidget, QTabWidget, QTextEdit, \
-                        QGridLayout, QLabel, QPlainTextEdit, QFrame, QPalette
+                        QGridLayout, QLabel, QPlainTextEdit, QFrame, QPalette, \
+                        QLineEdit, QPushButton, QWidget
 
 
 class apeMain():
@@ -62,6 +63,54 @@ class apeMain():
                                         Qt.RightDockWidgetArea)
 
         self.parent.addDockWidget(Qt.LeftDockWidgetArea, self.filesDock)
+
+
+class apeNewFileDialog():
+
+    def __init__(self, parent):
+        parent.setWindowTitle("Create a new file")
+        parent.resize(400, 250)
+
+        descriptionLabel = QLabel(parent)
+        descriptionLabel.setText("Enter the name for the new file " \
+                                    + "and choose a directory for it")
+
+        newFileLabel = QLabel(parent)
+        newFileLabel.setText("Name of the new file")
+
+        directoryLabel = QLabel(parent)
+        directoryLabel.setText("Directory for the new file")
+
+        newFilenameInput = QLineEdit(parent)
+        directoryInput = QLineEdit(parent)
+
+        browseButton = QPushButton("&Browse", parent)
+        browseButton.clicked.connect(parent.browseDirectory)
+
+        okButton = QPushButton("&Done", parent)
+        okButton.clicked.connect(parent.createNewFile)
+
+        cancelButton = QPushButton("&Cancel", parent)
+        cancelButton.clicked.connect(parent.close)
+
+        frame = QFrame(parent)
+        frame.setFrameStyle(QFrame.HLine)
+        frame.setFrameShadow(QFrame.Sunken)
+
+        space = QWidget(parent)
+        space.resize(400, 50)
+
+        grid = QGridLayout(parent)
+        grid.addWidget(descriptionLabel, 0, 0, 1, 3)
+        grid.addWidget(newFileLabel, 1, 0, 1, 3)
+        grid.addWidget(newFilenameInput, 2, 0, 1, 3)
+        grid.addWidget(directoryLabel, 3, 0, 1, 3)
+        grid.addWidget(directoryInput, 4, 0, 1, 2)
+        grid.addWidget(browseButton, 4, 2, 1, 1)
+        grid.addWidget(space, 5, 0, 1, 3)
+        grid.addWidget(frame, 6, 0, 1, 3)
+        grid.addWidget(cancelButton, 7, 0, 1, 1)
+        grid.addWidget(okButton, 7, 2, 1, 1)
 
 
 class apeDocumentsArea():

@@ -17,7 +17,7 @@ __date__ ="$Oct 30, 2010 5:43:01 PM$"
 import sys
 
 from PyQt4.QtCore import *
-from PyQt4.QtGui import QApplication, QMainWindow
+from PyQt4.QtGui import QApplication, QMainWindow, QFileDialog
 
 from apelib import gui, elements
 
@@ -35,7 +35,8 @@ class apeMain(QMainWindow):
         self.fileBrowser = elements.apeFileBrowser(self.gui.filesDock, self)
 
     def newFile(self):
-        pass
+        newFileDialog = elements.apeNewFileDialog(self)
+        newFileDialog.exec_()
 
     def newDirectory(self):
         pass

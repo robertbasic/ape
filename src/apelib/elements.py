@@ -65,6 +65,20 @@ class apeFileBrowser(QWidget):
             self.app.addNewDocument(self.model.filePath(i))
 
 
+class apeNewFileDialog(QDialog):
+
+    def __init__(self, parent):
+        QDialog.__init__(self)
+
+        self.gui = gui.apeNewFileDialog(self)
+
+    def browseDirectory(self):
+        pass
+
+    def createNewFile(self):
+        pass
+
+
 class apeDocumentsArea(QWidget):
     """An area which groups together all the opened files/documents"""
 
