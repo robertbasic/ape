@@ -84,7 +84,22 @@ class apeNewFileDialog(QDialog):
         self.directoryInput.insert(directory)
 
     def createNewFile(self):
-        pass
+        filename = self.newFilenameInput.text()
+        directory = self.directoryInput.text()
+        directoryInfo = QFileInfo(directory)
+        if(directoryInfo.isDir() and directoryInfo.isWritable()):
+            filePath = "%s/%s" % (directory, filename)
+            filePathInfo = QFileInfo(filePath)
+            if(filePathInfo.exists() == False):
+                newFile = open(filePath, 'wb')
+                # UTF-8
+                newFile.write("\xEF\xBB\xBF")
+                newFile.close()
+                self.done(1)
+            else:
+                pass
+        else:
+            pass
 
 
 class apeDocumentsArea(QWidget):

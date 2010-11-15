@@ -12,10 +12,11 @@ __author__="robertbasic"
 __date__ ="$Oct 31, 2010 2:18:32 PM$"
 
 
-from PyQt4.QtCore import SIGNAL, SLOT, Qt
+from PyQt4.QtCore import SIGNAL, SLOT, Qt, QRegExp
 from PyQt4.QtGui import QAction, QIcon, QDockWidget, QTabWidget, QTextEdit, \
                         QGridLayout, QLabel, QPlainTextEdit, QFrame, QPalette, \
-                        QLineEdit, QPushButton, QWidget
+                        QLineEdit, QPushButton, QWidget, QRegExpValidator
+                        
 
 
 class apeMain():
@@ -71,6 +72,8 @@ class apeNewFileDialog():
         parent.setWindowTitle("Create a new file")
         parent.resize(400, 250)
 
+        parent.setAttribute(Qt.WA_DeleteOnClose)
+
         descriptionLabel = QLabel(parent)
         descriptionLabel.setText("Enter the name for the new file " \
                                     + "and choose a directory for it")
@@ -82,6 +85,13 @@ class apeNewFileDialog():
         directoryLabel.setText("Directory for the new file")
 
         parent.newFilenameInput = QLineEdit(parent)
+        validator = QRegExpValidator(parent.newFilenameInput)
+        # altho a valid unix filename can contain anything but / and \0 (null)
+        # this should be enough for every sane person
+        pattern = QRegExp("[a-zA-Z0-9-_.]+")
+        validator.setRegExp(pattern)
+        parent.newFilenameInput.setValidator(validator)
+
         parent.directoryInput = QLineEdit(parent.home, parent)
         parent.directoryInput.setReadOnly(True)
 
