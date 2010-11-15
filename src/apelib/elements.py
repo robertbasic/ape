@@ -67,6 +67,8 @@ class apeFileBrowser(QWidget):
 
 class apeNewFileDialog(QDialog):
 
+    fileCreated = pyqtSignal('str')
+
     def __init__(self, parent):
         QDialog.__init__(self)
 
@@ -95,6 +97,7 @@ class apeNewFileDialog(QDialog):
                 # UTF-8
                 newFile.write("\xEF\xBB\xBF")
                 newFile.close()
+                self.fileCreated.emit(QString(filePath))
                 self.done(1)
             else:
                 pass

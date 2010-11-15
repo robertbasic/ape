@@ -36,6 +36,7 @@ class apeMain(QMainWindow):
 
     def newFile(self):
         newFileDialog = elements.apeNewFileDialog(self)
+        newFileDialog.fileCreated.connect(self.addNewDocument)
         newFileDialog.exec_()
 
     def newDirectory(self):
