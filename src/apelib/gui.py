@@ -81,8 +81,9 @@ class apeNewFileDialog():
         directoryLabel = QLabel(parent)
         directoryLabel.setText("Directory for the new file")
 
-        newFilenameInput = QLineEdit(parent)
-        directoryInput = QLineEdit(parent)
+        parent.newFilenameInput = QLineEdit(parent)
+        parent.directoryInput = QLineEdit(parent.home, parent)
+        parent.directoryInput.setReadOnly(True)
 
         browseButton = QPushButton("&Browse", parent)
         browseButton.clicked.connect(parent.browseDirectory)
@@ -103,9 +104,9 @@ class apeNewFileDialog():
         grid = QGridLayout(parent)
         grid.addWidget(descriptionLabel, 0, 0, 1, 3)
         grid.addWidget(newFileLabel, 1, 0, 1, 3)
-        grid.addWidget(newFilenameInput, 2, 0, 1, 3)
+        grid.addWidget(parent.newFilenameInput, 2, 0, 1, 3)
         grid.addWidget(directoryLabel, 3, 0, 1, 3)
-        grid.addWidget(directoryInput, 4, 0, 1, 2)
+        grid.addWidget(parent.directoryInput, 4, 0, 1, 2)
         grid.addWidget(browseButton, 4, 2, 1, 1)
         grid.addWidget(space, 5, 0, 1, 3)
         grid.addWidget(frame, 6, 0, 1, 3)

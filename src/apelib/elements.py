@@ -70,10 +70,18 @@ class apeNewFileDialog(QDialog):
     def __init__(self, parent):
         QDialog.__init__(self)
 
+        self.home = os.path.expanduser("~")
+
         self.gui = gui.apeNewFileDialog(self)
 
     def browseDirectory(self):
-        pass
+        directory = QFileDialog.getExistingDirectory(self, "Select directory", \
+                                                        self.home)
+        if(directory == ''):
+            directory = self.home
+
+        self.directoryInput.clear()
+        self.directoryInput.insert(directory)
 
     def createNewFile(self):
         pass
