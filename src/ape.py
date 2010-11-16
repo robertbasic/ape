@@ -35,7 +35,8 @@ class apeMain(QMainWindow):
         self.fileBrowser = elements.apeFileBrowser(self.gui.filesDock, self)
 
     def newFile(self):
-        newFileDialog = elements.apeNewFileDialog(self)
+        possibleDirectory = self.newFileAction.data().toString()
+        newFileDialog = elements.apeNewFileDialog(self, possibleDirectory)
         newFileDialog.fileCreated.connect(self.addNewDocument)
         newFileDialog.exec_()
 

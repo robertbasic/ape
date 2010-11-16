@@ -53,12 +53,18 @@ class apeFileBrowser(QWidget):
         tree.hideColumn(3)
         
         parent.setWidget(tree)
+        self.tree = tree
 
     def treeContextMenu(self, point):
         menu = QMenu(self.app)
         menu.addAction(self.app.newFileAction)
         menu.addAction(self.app.newDirectoryAction)
         menu.popup(QCursor.pos())
+
+        idx = self.tree.selectedIndexes()[0]
+        path = self.model.filePath(idx)
+        self.app.newFileAction.setData(path)
+        self.app.newDirectoryAction.setData(path)
 
     def treeItemActivated(self, i):
         if(self.model.isDir(i) == False):
@@ -69,10 +75,16 @@ class apeNewFileDialog(QDialog):
 
     fileCreated = pyqtSignal('str')
 
-    def __init__(self, parent):
+    def __init__(self, parent, possibleDirectory=''):
         QDialog.__init__(self)
 
         self.home = os.path.expanduser("~")
+        self.startDirectory = self.home
+
+        if(possibleDirectory != ''):
+            possibleDirInfo = QFileInfo(possibleDirectory)
+            if(possibleDirInfo.isDir() and possibleDirInfo.isWritable()):
+                self.startDirectory = possibleDirectory
 
         self.gui = gui.apeNewFileDialog(self)
 

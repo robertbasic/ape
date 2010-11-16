@@ -92,7 +92,7 @@ class apeNewFileDialog():
         validator.setRegExp(pattern)
         parent.newFilenameInput.setValidator(validator)
 
-        parent.directoryInput = QLineEdit(parent.home, parent)
+        parent.directoryInput = QLineEdit(parent.startDirectory, parent)
         parent.directoryInput.setReadOnly(True)
 
         browseButton = QPushButton("&Browse", parent)
