@@ -117,6 +117,46 @@ class apeNewFileDialog(QDialog):
             pass
 
 
+class apeNewDirectoryDialog(QDialog):
+
+    def __init__(self, parent, possibleDirectory=''):
+        QDialog.__init__(self)
+
+        self.home = os.path.expanduser("~")
+        self.startDirectory = self.home
+
+        if(possibleDirectory != ''):
+            possibleDirInfo = QFileInfo(possibleDirectory)
+            if(possibleDirInfo.isDir() and possibleDirInfo.isWritable()):
+                self.startDirectory = possibleDirectory
+
+        self.gui = gui.apeNewDirectoryDialog(self)
+
+    def browseDirectory(self):
+        directory = QFileDialog.getExistingDirectory(self, "Select directory", \
+                                                        self.home)
+        if(directory == ''):
+            directory = self.home
+
+        self.directoryInput.clear()
+        self.directoryInput.insert(directory)
+
+    def createNewDirectory(self):
+        newDir = self.newDirectoryInput.text()
+        directory = self.directoryInput.text()
+        directoryInfo = QFileInfo(directory)
+        if(directoryInfo.isDir() and directoryInfo.isWritable()):
+            dirPath = "%s/%s" % (directory, newDir)
+            dirPathInfo = QFileInfo(dirPath)
+            if(dirPathInfo.exists() == False):
+                os.mkdir(dirPath, 0755)
+                self.done(1)
+            else:
+                pass
+        else:
+            pass
+
+
 class apeDocumentsArea(QWidget):
     """An area which groups together all the opened files/documents"""
 

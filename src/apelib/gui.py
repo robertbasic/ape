@@ -124,6 +124,64 @@ class apeNewFileDialog():
         grid.addWidget(okButton, 7, 2, 1, 1)
 
 
+class apeNewDirectoryDialog():
+
+    def __init__(self, parent):
+        parent.setWindowTitle("Create a new directory")
+        parent.resize(400, 250)
+
+        parent.setAttribute(Qt.WA_DeleteOnClose)
+
+        descriptionLabel = QLabel(parent)
+        descriptionLabel.setText("Enter the name for the new directory " \
+                                    + "and choose a parent directory for it")
+
+        newDirectoryLabel = QLabel(parent)
+        newDirectoryLabel.setText("Name of the new directory")
+
+        directoryLabel = QLabel(parent)
+        directoryLabel.setText("Parent directory for the new directory")
+
+        parent.newDirectoryInput = QLineEdit(parent)
+        validator = QRegExpValidator(parent.newDirectoryInput)
+        # altho a valid unix filename can contain anything but / and \0 (null)
+        # this should be enough for every sane person
+        pattern = QRegExp("[a-zA-Z0-9-_.]+")
+        validator.setRegExp(pattern)
+        parent.newDirectoryInput.setValidator(validator)
+
+        parent.directoryInput = QLineEdit(parent.startDirectory, parent)
+        parent.directoryInput.setReadOnly(True)
+
+        browseButton = QPushButton("&Browse", parent)
+        browseButton.clicked.connect(parent.browseDirectory)
+
+        okButton = QPushButton("&Done", parent)
+        okButton.clicked.connect(parent.createNewDirectory)
+
+        cancelButton = QPushButton("&Cancel", parent)
+        cancelButton.clicked.connect(parent.close)
+
+        frame = QFrame(parent)
+        frame.setFrameStyle(QFrame.HLine)
+        frame.setFrameShadow(QFrame.Sunken)
+
+        space = QWidget(parent)
+        space.resize(400, 50)
+
+        grid = QGridLayout(parent)
+        grid.addWidget(descriptionLabel, 0, 0, 1, 3)
+        grid.addWidget(newDirectoryLabel, 1, 0, 1, 3)
+        grid.addWidget(parent.newDirectoryInput, 2, 0, 1, 3)
+        grid.addWidget(directoryLabel, 3, 0, 1, 3)
+        grid.addWidget(parent.directoryInput, 4, 0, 1, 2)
+        grid.addWidget(browseButton, 4, 2, 1, 1)
+        grid.addWidget(space, 5, 0, 1, 3)
+        grid.addWidget(frame, 6, 0, 1, 3)
+        grid.addWidget(cancelButton, 7, 0, 1, 1)
+        grid.addWidget(okButton, 7, 2, 1, 1)
+
+
 class apeDocumentsArea():
     """GUI for the documents area."""
 

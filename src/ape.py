@@ -41,7 +41,9 @@ class apeMain(QMainWindow):
         newFileDialog.exec_()
 
     def newDirectory(self):
-        pass
+        possibleDirectory = self.newDirectoryAction.data().toString()
+        newDirDialog = elements.apeNewDirectoryDialog(self, possibleDirectory)
+        newDirDialog.exec_()
 
     def addNewDocument(self, path):
         alreadyOpen = self.documents.isDocumentAlreadyOpen(path)
