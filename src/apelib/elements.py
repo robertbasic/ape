@@ -73,7 +73,7 @@ class apeFileBrowser(QWidget):
 
 class apeNewFileDialog(QDialog):
 
-    fileCreated = pyqtSignal('str')
+    fileCreated = pyqtSignal(str)
 
     def __init__(self, parent, possibleDirectory=''):
         QDialog.__init__(self)
