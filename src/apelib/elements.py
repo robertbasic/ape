@@ -71,9 +71,7 @@ class apeFileBrowser(QWidget):
             self.app.addNewDocument(self.model.filePath(i))
 
 
-class apeNewFileDialog(QDialog):
-
-    fileCreated = pyqtSignal(str)
+class apeNewFileDirectoryDialogAbstract(QDialog):
 
     def __init__(self, parent, possibleDirectory=''):
         QDialog.__init__(self)
@@ -86,7 +84,6 @@ class apeNewFileDialog(QDialog):
             if(possibleDirInfo.isDir() and possibleDirInfo.isWritable()):
                 self.startDirectory = possibleDirectory
 
-        self.gui = gui.apeNewFileDialog(self)
 
     def browseDirectory(self):
         directory = QFileDialog.getExistingDirectory(self, "Select directory", \
@@ -96,6 +93,16 @@ class apeNewFileDialog(QDialog):
 
         self.directoryInput.clear()
         self.directoryInput.insert(directory)
+
+
+class apeNewFileDialog(apeNewFileDirectoryDialogAbstract):
+
+    fileCreated = pyqtSignal(str)
+
+    def __init__(self, parent, possibleDirectory=''):
+        apeNewFileDirectoryDialogAbstract.__init__(self, parent, possibleDirectory)
+
+        self.gui = gui.apeNewFileDialog(self)
 
     def createNewFile(self):
         filename = self.newFilenameInput.text()
@@ -117,29 +124,12 @@ class apeNewFileDialog(QDialog):
             pass
 
 
-class apeNewDirectoryDialog(QDialog):
+class apeNewDirectoryDialog(apeNewFileDirectoryDialogAbstract):
 
     def __init__(self, parent, possibleDirectory=''):
-        QDialog.__init__(self)
-
-        self.home = os.path.expanduser("~")
-        self.startDirectory = self.home
-
-        if(possibleDirectory != ''):
-            possibleDirInfo = QFileInfo(possibleDirectory)
-            if(possibleDirInfo.isDir() and possibleDirInfo.isWritable()):
-                self.startDirectory = possibleDirectory
+        apeNewFileDirectoryDialogAbstract.__init__(self, parent, possibleDirectory)
 
         self.gui = gui.apeNewDirectoryDialog(self)
-
-    def browseDirectory(self):
-        directory = QFileDialog.getExistingDirectory(self, "Select directory", \
-                                                        self.home)
-        if(directory == ''):
-            directory = self.home
-
-        self.directoryInput.clear()
-        self.directoryInput.insert(directory)
 
     def createNewDirectory(self):
         newDir = self.newDirectoryInput.text()
