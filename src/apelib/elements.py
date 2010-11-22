@@ -200,6 +200,12 @@ class apeDocument(QWidget):
 
     valid = True
 
+    """A dirty hack flag to circumvent the calling of the
+    documentModified slot on opening a document. Actually it gets called
+    but does nothing if this is set to True.
+    """
+    openningDocument = False
+
     def __init__(self, filePath):
         QWidget.__init__(self)
 
@@ -232,11 +238,14 @@ class apeDocument(QWidget):
             data = file.readAll()
             codec = QTextCodec.codecForName("UTF-8")
             str = codec.toUnicode(data)
+            self.openningDocument = True
             self.text.appendPlainText(str)
 
             self.syntaxer = syntaxer.syntaxer(self.text.document())
 
-            self.setLineNumbers()    
+            self.text.document().setModified(False)
+
+            self.setLineNumbers()
 
     def isBinary(self,filePath):
         filePath = unicode(filePath.toUtf8(), 'utf-8')
@@ -281,3 +290,11 @@ class apeDocument(QWidget):
         extraSelections.append(selection)
 
         self.text.setExtraSelections(extraSelections)
+
+    def documentModified(self):
+        if(self.text.document().isModified() \
+                and self.openningDocument == False):
+            print 'mod'
+        elif(self.text.document().isModified() \
+                and self.openningDocument == True):
+            self.openningDocument = False
