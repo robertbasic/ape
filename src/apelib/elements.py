@@ -206,8 +206,12 @@ class apeDocument(QWidget):
     """
     openningDocument = False
 
-    def __init__(self, filePath):
+    isModified = False
+
+    def __init__(self, filePath, app):
         QWidget.__init__(self)
+
+        self.app = app
 
         file = QFile(filePath)
         fileinfo = QFileInfo(file)
@@ -294,7 +298,15 @@ class apeDocument(QWidget):
     def documentModified(self):
         if(self.text.document().isModified() \
                 and self.openningDocument == False):
-            print 'mod'
+            
+            if(self.isModified == False):
+                idx = self.app.documents.tabs.currentIndex()
+                tabText = self.app.documents.tabs.tabText(idx)
+                tabText = "%s [*]" % tabText
+                self.app.documents.tabs.setTabText(idx, tabText)
+
+            self.isModified = True
+            
         elif(self.text.document().isModified() \
                 and self.openningDocument == True):
             self.openningDocument = False

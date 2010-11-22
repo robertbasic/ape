@@ -49,7 +49,7 @@ class apeMain(QMainWindow):
         alreadyOpen = self.documents.isDocumentAlreadyOpen(path)
         # 0 == False gives True!
         if(alreadyOpen is False):
-            document = elements.apeDocument(path)
+            document = elements.apeDocument(path, self)
             if(document.valid):
                 index = self.documents.tabs.addTab(document, document.fileName)
 
