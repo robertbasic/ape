@@ -213,6 +213,8 @@ class apeDocument(QWidget):
 
         self.app = app
 
+        self.filePath = filePath
+
         file = QFile(filePath)
         fileinfo = QFileInfo(file)
 
@@ -306,7 +308,24 @@ class apeDocument(QWidget):
                 self.app.documents.tabs.setTabText(idx, tabText)
 
             self.isModified = True
+
+            self.app.saveAction.setEnabled(True)
             
         elif(self.text.document().isModified() \
                 and self.openningDocument == True):
             self.openningDocument = False
+
+    def save(self, documentIndex):
+        if(self.isModified):
+            file = open(self.filePath, 'w')
+            data = self.text.toPlainText()
+            file.write(data)
+            file.close()
+
+            tabText = self.app.documents.tabs.tabText(documentIndex)
+            tabText = tabText[:-4]
+            self.app.documents.tabs.setTabText(documentIndex, tabText)
+
+            self.isModified = False
+
+            self.app.saveAction.setDisabled(True)

@@ -48,6 +48,7 @@ class apeMain():
         saveAction.triggered.connect(self.parent.saveDocument)
         saveAction.setShortcut(Qt.CTRL + Qt.Key_S)
         saveAction.setDisabled(True)
+        self.parent.saveAction = saveAction
 
         exitAction = QAction(QIcon("icons/exit.png"), "E&xit", self.parent)
         exitAction.triggered.connect(self.parent.close)
