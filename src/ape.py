@@ -59,6 +59,9 @@ class apeMain(QMainWindow):
         else:
             self.documents.tabs.setCurrentIndex(alreadyOpen)
 
+    def saveDocument(self):
+        print 'save...'
+
     def closeDocument(self, index):
         document = self.documents.tabs.widget(index)
         closed = document.close()

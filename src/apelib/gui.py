@@ -44,12 +44,18 @@ class apeMain():
         newDirectoryAction.triggered.connect(self.parent.newDirectory)
         self.parent.newDirectoryAction = newDirectoryAction
 
+        saveAction = QAction("&Save", self.parent)
+        saveAction.triggered.connect(self.parent.saveDocument)
+        saveAction.setShortcut(Qt.CTRL + Qt.Key_S)
+        saveAction.setDisabled(True)
+
         exitAction = QAction(QIcon("icons/exit.png"), "E&xit", self.parent)
         exitAction.triggered.connect(self.parent.close)
 
         fileMenu = self.menubar.addMenu("&File")
         newMenu = fileMenu.addMenu("New")
 
+        fileMenu.addAction(saveAction)
         fileMenu.addAction(exitAction)
 
         newMenu.addAction(newFileAction)
