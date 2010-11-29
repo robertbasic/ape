@@ -50,6 +50,10 @@ class apeMain():
         saveAction.setDisabled(True)
         self.parent.saveAction = saveAction
 
+        saveAllAction = QAction("S&ave all", self.parent)
+        saveAllAction.triggered.connect(self.parent.saveAllDocuments)
+        saveAllAction.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_S)
+
         exitAction = QAction(QIcon("icons/exit.png"), "E&xit", self.parent)
         exitAction.triggered.connect(self.parent.close)
 
@@ -57,6 +61,7 @@ class apeMain():
         newMenu = fileMenu.addMenu("New")
 
         fileMenu.addAction(saveAction)
+        fileMenu.addAction(saveAllAction)
         fileMenu.addAction(exitAction)
 
         newMenu.addAction(newFileAction)

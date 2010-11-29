@@ -64,6 +64,9 @@ class apeMain(QMainWindow):
         document = self.documents.tabs.widget(idx)
         document.save(idx)
 
+    def saveAllDocuments(self):
+        pass
+
     def closeDocument(self, index):
         document = self.documents.tabs.widget(index)
         closed = document.close()
