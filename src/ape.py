@@ -65,7 +65,11 @@ class apeMain(QMainWindow):
         document.save(idx)
 
     def saveAllDocuments(self):
-        pass
+        numOfTabs = self.documents.tabs.count()
+        if(numOfTabs > 0):
+            for idx in range(0, numOfTabs):
+                document = self.documents.tabs.widget(idx)
+                document.save(idx)
 
     def closeDocument(self, index):
         document = self.documents.tabs.widget(index)
