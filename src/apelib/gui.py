@@ -47,8 +47,6 @@ class apeMain():
         saveAction = QAction("&Save", self.parent)
         saveAction.triggered.connect(self.parent.saveDocument)
         saveAction.setShortcut(Qt.CTRL + Qt.Key_S)
-        saveAction.setDisabled(True)
-        self.parent.saveAction = saveAction
 
         saveAllAction = QAction("S&ave all", self.parent)
         saveAllAction.triggered.connect(self.parent.saveAllDocuments)

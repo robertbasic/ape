@@ -308,8 +308,6 @@ class apeDocument(QWidget):
                 self.app.documents.tabs.setTabText(idx, tabText)
 
             self.isModified = True
-
-            self.app.saveAction.setEnabled(True)
             
         elif(self.text.document().isModified() \
                 and self.openningDocument == True):
@@ -327,5 +325,3 @@ class apeDocument(QWidget):
             self.app.documents.tabs.setTabText(documentIndex, tabText)
 
             self.isModified = False
-
-            self.app.saveAction.setDisabled(True)
