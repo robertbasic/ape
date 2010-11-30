@@ -180,6 +180,12 @@ class apeDocumentsArea(QWidget):
             del self.open[path]
             self.tabs.removeTab(index)
 
+    def closeOtherTabs(self, index):
+        print index
+
+    def closeAllTabs(self):
+        print 'all'
+
     def tabsContextMenu(self, point):
         widget = self.tabs.childAt(point)
         if(isinstance(widget, QTabBar) is False):
@@ -187,6 +193,24 @@ class apeDocumentsArea(QWidget):
         else:
             # index of the tab on which we requested the context menu
             index = widget.tabAt(point)
+            menu = QMenu(self)
+
+            closeTabAction = QAction("Close tab", self)
+            # so that we can pass the index which needs to be closed
+            closeTabAction.triggered.connect(lambda i=index: self.closeTab(i))
+
+            closeOtherTabsAction = QAction("Close other tabs", self)
+            closeOtherTabsAction.triggered.connect(lambda i=index: \
+                                                    self.closeOtherTabs(i))
+
+            closeAllTabsAction = QAction("Close all tabs", self)
+            closeAllTabsAction.triggered.connect(self.closeAllTabs)
+
+            menu.addAction(closeTabAction)
+            menu.addAction(closeOtherTabsAction)
+            menu.addAction(closeAllTabsAction)
+
+            menu.popup(QCursor().pos())
 
 
 class apeDocument(QWidget):
