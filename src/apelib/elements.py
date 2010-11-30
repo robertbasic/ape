@@ -202,11 +202,11 @@ class apeDocumentsArea(QWidget):
 
             closeTabAction = QAction("Close tab", self)
             # so that we can pass the index which needs to be closed
-            closeTabAction.triggered.connect(lambda i=index: self.closeTab(i))
+            closeTabAction.triggered.connect(lambda: self.closeTab(index))
 
             closeOtherTabsAction = QAction("Close other tabs", self)
-            closeOtherTabsAction.triggered.connect(lambda i=index: \
-                                                    self.closeOtherTabs(i))
+            closeOtherTabsAction.triggered.connect(lambda: \
+                                                    self.closeOtherTabs(index))
 
             closeAllTabsAction = QAction("Close all tabs", self)
             closeAllTabsAction.triggered.connect(self.closeAllTabs)
