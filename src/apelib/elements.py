@@ -180,6 +180,14 @@ class apeDocumentsArea(QWidget):
             del self.open[path]
             self.tabs.removeTab(index)
 
+    def tabsContextMenu(self, point):
+        widget = self.tabs.childAt(point)
+        if(isinstance(widget, QTabBar) is False):
+            return False
+        else:
+            # index of the tab on which we requested the context menu
+            index = widget.tabAt(point)
+
 
 class apeDocument(QWidget):
     """A file/document opened for reading/writing, visually sits

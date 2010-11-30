@@ -198,12 +198,18 @@ class apeDocumentsArea():
     def __init__(self, parent):
         self.parent = parent
 
-        self.parent.tabs = QTabWidget(self.parent)
-        self.parent.parent.setCentralWidget(self.parent.tabs)
+        tabs = QTabWidget(self.parent)
+        self.parent.parent.setCentralWidget(tabs)
 
-        self.parent.tabs.setTabsClosable(True)
+        tabs.setTabsClosable(True)
 
-        self.parent.tabs.tabCloseRequested.connect(self.parent.closeTab)
+        tabs.setContextMenuPolicy(Qt.CustomContextMenu)
+
+        tabs.customContextMenuRequested.connect(self.parent.tabsContextMenu)
+
+        tabs.tabCloseRequested.connect(self.parent.closeTab)
+
+        self.parent.tabs = tabs
 
 
 class apeDocument():
