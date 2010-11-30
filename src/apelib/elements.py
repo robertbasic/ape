@@ -184,7 +184,12 @@ class apeDocumentsArea(QWidget):
         print index
 
     def closeAllTabs(self):
-        print 'all'
+        numOfTabs = self.tabs.count()
+        if(numOfTabs > 0):
+            # if not reversed the world ends
+            # also document closing fails miserably
+            for idx in reversed(range(0, numOfTabs)):
+                self.closeTab(idx)
 
     def tabsContextMenu(self, point):
         widget = self.tabs.childAt(point)
