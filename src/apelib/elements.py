@@ -204,8 +204,8 @@ class apeDocumentsArea(QWidget):
 
     def updateOpenTabs(self):
         """ After closing a tab, the tab indices of the other tabs are updated,
-        e.g. they always go 0..n. As the self.open dict depends on those indices
-        an update to self.open is needed with the
+        e.g. they always go 0..n. As the self.open dict depends on them
+        an update to self.open is needed with the new indices.
         """
         numOfTabs = self.tabs.count()
         if(numOfTabs > 0):
