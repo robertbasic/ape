@@ -14,6 +14,7 @@ import os
 import commands
 import re
 import math
+import hashlib
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -159,8 +160,12 @@ class apeDocumentsArea(QWidget):
 
         self.gui = gui.apeDocumentsArea(self)
 
+    def setDocumentOpen(self, path, index):
+        path = self.getPathKey(path)
+        self.open[path] = index
+
     def isDocumentAlreadyOpen(self, path):
-        path = unicode(path.toUtf8(), 'utf-8')
+        path = self.getPathKey(path)
         if(self.open.has_key(path)):
             return self.open[path]
         else:
@@ -172,6 +177,11 @@ class apeDocumentsArea(QWidget):
             return path[0]
         else:
             return False
+
+    def getPathKey(self, path):
+        path = unicode(path.toUtf8(), 'utf-8')
+        path = hashlib.md5(path)
+        return path.hexdigest()
 
     def closeTab(self, index):
         documentClosed = self.parent.closeDocument(index)

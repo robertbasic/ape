@@ -53,7 +53,7 @@ class apeMain(QMainWindow):
             if(document.valid):
                 index = self.documents.tabs.addTab(document, document.fileName)
 
-                self.documents.open[unicode(path.toUtf8(), 'utf-8')] = index
+                self.documents.setDocumentOpen(path, index)
 
                 self.documents.tabs.setCurrentIndex(index)
         else:
