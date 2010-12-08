@@ -189,6 +189,7 @@ class apeDocumentsArea(QWidget):
             path = self.getOpenDocumentPath(index)
             del self.open[path]
             self.tabs.removeTab(index)
+            self.updateOpenTabs()
 
     def closeOtherTabs(self, index):
         print index
@@ -200,6 +201,18 @@ class apeDocumentsArea(QWidget):
             # also document closing fails miserably
             for idx in reversed(range(0, numOfTabs)):
                 self.closeTab(idx)
+
+    def updateOpenTabs(self):
+        """ After closing a tab, the tab indices of the other tabs are updated,
+        e.g. they always go 0..n. As the self.open dict depends on those indices
+        an update to self.open is needed with the
+        """
+        numOfTabs = self.tabs.count()
+        if(numOfTabs > 0):
+            for idx in range(0, numOfTabs):
+                document = self.tabs.widget(idx)
+                path = self.getPathKey(document.filePath)
+                self.open[path] = idx
 
     def tabsContextMenu(self, point):
         widget = self.tabs.childAt(point)
