@@ -192,7 +192,16 @@ class apeDocumentsArea(QWidget):
             self.updateOpenTabs()
 
     def closeOtherTabs(self, index):
-        print index
+        tabsToClose = []
+        numOfTabs = self.tabs.count()
+        if(numOfTabs > 0):
+            for idx in range(0, numOfTabs):
+                if idx != index:
+                    tabsToClose.append(idx)
+
+        if(len(tabsToClose) > 0):
+            for idx in reversed(tabsToClose):
+                self.closeTab(idx)
 
     def closeAllTabs(self):
         numOfTabs = self.tabs.count()
