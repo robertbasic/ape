@@ -75,7 +75,17 @@ class apeMain(QMainWindow):
         document = self.documents.tabs.widget(index)
         closed = document.close()
         return closed
-    
+
+    def closeTab(self):
+        idx = self.documents.tabs.currentIndex()
+        self.documents.closeTab(idx)
+
+    def closeOtherTabs(self):
+        idx = self.documents.tabs.currentIndex()
+        self.documents.closeOtherTabs(idx)
+
+    def closeAllTabs(self):
+        self.documents.closeAllTabs()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

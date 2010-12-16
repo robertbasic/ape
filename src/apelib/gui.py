@@ -65,7 +65,28 @@ class apeMain():
         newMenu.addAction(newFileAction)
         newMenu.addAction(newDirectoryAction)
 
+        closeTabAction = QAction("Close tab", self.parent)
+        closeTabAction.triggered.connect(self.parent.closeTab)
+        closeTabAction.setShortcut(Qt.CTRL + Qt.Key_W)
+        closeTabAction.setShortcutContext(Qt.ApplicationShortcut)
+
+        closeOtherTabsAction = QAction("Close other tabs", self.parent)
+        closeOtherTabsAction.triggered.connect(self.parent.closeOtherTabs)
+        closeOtherTabsAction.setShortcut(Qt.CTRL + Qt.Key_Q)
+        closeOtherTabsAction.setShortcutContext(Qt.ApplicationShortcut)
+
+        closeAllTabsAction = QAction("Close all tabs", self.parent)
+        closeAllTabsAction.triggered.connect(self.parent.closeAllTabs)
+        closeAllTabsAction.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_W)
+        closeAllTabsAction.setShortcutContext(Qt.ApplicationShortcut)
+
         viewMenu = self.menubar.addMenu("&View")
+        tabsMenu = viewMenu.addMenu("Tabs")
+
+        tabsMenu.addAction(closeTabAction)
+        tabsMenu.addAction(closeOtherTabsAction)
+        tabsMenu.addAction(closeAllTabsAction)
+
         viewMenu.addAction(self.filesDock.toggleViewAction())
 
     def setupDocks(self):
