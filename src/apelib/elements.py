@@ -57,15 +57,23 @@ class apeFileBrowser(QWidget):
         self.tree = tree
 
     def treeContextMenu(self, point):
+        deleteAction = QAction("Delete", self.app)
+        deleteAction.triggered.connect(self.app.delete)
+
         menu = QMenu(self.app)
         menu.addAction(self.app.newFileAction)
         menu.addAction(self.app.newDirectoryAction)
+        menu.addSeparator()
+        menu.addAction(deleteAction)
         menu.popup(QCursor.pos())
+
+        self.app.deleteAction = deleteAction
 
         idx = self.tree.selectedIndexes()[0]
         path = self.model.filePath(idx)
         self.app.newFileAction.setData(path)
         self.app.newDirectoryAction.setData(path)
+        self.app.deleteAction.setData(path)
 
     def treeItemActivated(self, i):
         if(self.model.isDir(i) == False):

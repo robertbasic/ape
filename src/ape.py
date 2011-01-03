@@ -45,6 +45,13 @@ class apeMain(QMainWindow):
         newDirDialog = elements.apeNewDirectoryDialog(self, possibleDirectory)
         newDirDialog.exec_()
 
+    def delete(self):
+        """ delete file or directory"""
+        possiblePath = self.deleteAction.data().toString()
+        pathInfo = QFileInfo(possiblePath)
+        if(pathInfo.isFile() and pathInfo.isWritable()):
+            print possiblePath
+
     def addNewDocument(self, path):
         alreadyOpen = self.documents.isDocumentAlreadyOpen(path)
         # 0 == False gives True!
